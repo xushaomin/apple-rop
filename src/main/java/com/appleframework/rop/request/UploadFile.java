@@ -24,6 +24,8 @@ public class UploadFile {
     private String fileType;
 
     private byte[] content;
+    
+    private String fileSource;
 
     /**
      * 根据文件内容构造
@@ -33,6 +35,17 @@ public class UploadFile {
     public UploadFile(String fileType, byte[] content) {
         this.content = content;
         this.fileType = fileType;
+    }
+    
+    /**
+     * 根据文件内容构造
+     *
+     * @param content
+     */
+    public UploadFile(String fileType, byte[] content, String fileSource) {
+        this.content = content;
+        this.fileType = fileType;
+        this.fileSource = fileSource;
     }
 
     /**
@@ -55,6 +68,11 @@ public class UploadFile {
     public byte[] getContent() {
         return content;
     }
+
+	public String getFileSource() {
+		return fileSource;
+	}
+    
 }
 
 

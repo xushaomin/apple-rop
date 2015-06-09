@@ -26,7 +26,7 @@ import java.io.OutputStream;
  * @version 1.0
  */
 public class JacksonJsonRopMarshaller implements RopMarshaller {
-
+	
     private static ObjectMapper objectMapper;
 
     public void marshaller(Object object, OutputStream outputStream) {
@@ -38,7 +38,7 @@ public class JacksonJsonRopMarshaller implements RopMarshaller {
         }
     }
 
-    private ObjectMapper getObjectMapper() throws IOException {
+	private ObjectMapper getObjectMapper() throws IOException {
         if (JacksonJsonRopMarshaller.objectMapper == null) {
             ObjectMapper objectMapper = new ObjectMapper();
             AnnotationIntrospector introspector = new JaxbAnnotationIntrospector();

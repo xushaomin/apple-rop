@@ -19,13 +19,13 @@ import javax.xml.bind.annotation.*;
 public class SuccessResponse {
 
 	@XmlElement
-	protected Integer result = 1;
+	protected String result = "0";
 
-	public Integer getResult() {
+	public String getResult() {
 		return result;
 	}
 
-	public void setResult(Integer result) {
+	public void setResult(String result) {
 		this.result = result;
 	}
 

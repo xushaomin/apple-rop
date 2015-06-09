@@ -18,7 +18,7 @@ public class UploadFileConverter implements RopConverter<String, UploadFile> {
     public UploadFile convert(String source) {
         String fileType = UploadFileUtils.getFileType(source);
         byte[] contentBytes = UploadFileUtils.decode(source);
-        return new UploadFile(fileType, contentBytes);
+        return new UploadFile(fileType, contentBytes, source);
     }
 
     @Override
