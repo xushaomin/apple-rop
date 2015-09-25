@@ -46,7 +46,7 @@ public class JacksonJsonRopMarshaller implements RopMarshaller {
             serializationConfig = serializationConfig.without(SerializationConfig.Feature.WRAP_ROOT_VALUE)
                     .with(SerializationConfig.Feature.INDENT_OUTPUT)
                     .withSerializationInclusion(JsonSerialize.Inclusion.NON_NULL)
-                    .withSerializationInclusion(JsonSerialize.Inclusion.NON_EMPTY)
+                    //.withSerializationInclusion(JsonSerialize.Inclusion.NON_EMPTY)
                     .withAnnotationIntrospector(introspector);
             objectMapper.setSerializationConfig(serializationConfig);
             JacksonJsonRopMarshaller.objectMapper = objectMapper;
