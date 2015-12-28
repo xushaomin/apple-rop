@@ -148,7 +148,9 @@ public class DefaultRopContext implements RopContext {
                                     serviceMethodHandler.setRopRequestImplType(ropRequestImplType);
                                     serviceMethodHandler.setRequestType((Class<? extends RopRequest>) paramType);
                                 } else {
-                                    logger.info(method.getDeclaringClass().getName() + "." + method.getName() + "无入参");
+                                	if(logger.isInfoEnabled()) {
+                                		logger.info(method.getDeclaringClass().getName() + "." + method.getName() + "无入参");
+                                	}
                                 }
 
                                 //2.set sign fieldNames
