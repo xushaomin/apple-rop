@@ -6,6 +6,7 @@ package com.appleframework.rop;
 
 import com.appleframework.rop.event.RopEventListener;
 import com.appleframework.rop.security.InvokeTimesController;
+import com.appleframework.rop.security.SecurityManager;
 import com.appleframework.rop.session.SessionManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.format.support.FormattingConversionService;
@@ -88,7 +89,7 @@ public interface ServiceRouter {
      *
      * @param securityManager
      */
-    void setSecurityManager(com.appleframework.rop.security.SecurityManager securityManager);
+    void setSecurityManager(SecurityManager securityManager);
 
     /**
      * 注册
