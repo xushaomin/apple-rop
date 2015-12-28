@@ -32,13 +32,14 @@ import org.w3c.dom.Element;
  * @version 1.0
  */
 public class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
+	
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     public static final int DEFAULT_CORE_POOL_SIZE = 200;
     public static final int DEFAULT_MAX_POOL_SIZE = 500;
     public static final int DEFAULT_KEEP_ALIVE_SECONDS = 5 * 60;
     public static final int DEFAULT_QUENE_CAPACITY = 20;
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
-
+    
     @Override
     public BeanDefinition parse(Element element, ParserContext parserContext) {
         Object source = parserContext.extractSource(element);
