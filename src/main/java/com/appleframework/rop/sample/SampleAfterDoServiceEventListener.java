@@ -28,12 +28,14 @@ public class SampleAfterDoServiceEventListener implements RopEventListener<After
 
     @Override
     public void onRopEvent(AfterDoServiceEvent ropEvent) {
-        RopRequestContext ropRequestContext = ropEvent.getRopRequestContext();
-        if(ropRequestContext != null){
-            Map<String,String> allParams = ropRequestContext.getAllParams();
-            String message = MessageMarshallerUtils.asUrlString(allParams);
-            logger.info("message("+ropEvent.getServiceEndTime()+")"+message);
-        }
+    	if(logger.isInfoEnabled()) {
+    		RopRequestContext ropRequestContext = ropEvent.getRopRequestContext();
+            if(ropRequestContext != null){
+                Map<String,String> allParams = ropRequestContext.getAllParams();
+                String message = MessageMarshallerUtils.asUrlString(allParams);
+                logger.info("message("+ropEvent.getServiceEndTime()+")"+message);
+            }
+    	}
     }
 
     @Override
