@@ -23,12 +23,16 @@ public class SampleThreadFerry implements ThreadFerry{
 
     @Override
     public void doInSrcThread() {
-    	logger.info("doInSrcThread:"+Thread.currentThread().getId());
+    	if(logger.isInfoEnabled()) {
+    		logger.info("doInSrcThread:"+Thread.currentThread().getId());
+    	}
     }
 
     @Override
     public void doInDestThread() {
-    	logger.info("doInSrcThread:"+Thread.currentThread().getId());
+    	if(logger.isInfoEnabled()) {
+    		logger.info("doInSrcThread:"+Thread.currentThread().getId());
+    	}
     }
 }
 
