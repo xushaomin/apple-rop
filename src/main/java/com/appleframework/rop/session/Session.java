@@ -47,5 +47,30 @@ public interface Session extends Serializable {
      * 些更改同步到外部缓存服务器中。
      */
     boolean isChanged();
+    
+    /**
+     * 判断会话是否过期 =true是 =false否
+     * @param expire 过期时间 单位 秒
+     * @return
+     */
+    boolean isExpire();
+    
+    /**
+     * 获取SessionId
+     * @return
+     */
+    String getSessionId();
+    
+    /**
+     * 设置sessionId
+     * @return
+     */
+    void setSessionId(String sessionId);
+    
+    /**
+     * 获取过期时长 单位毫秒
+     * @return
+     */
+    long getExpiresIn();
 
 }

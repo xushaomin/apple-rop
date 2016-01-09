@@ -73,6 +73,13 @@ public interface RopRequestContext {
      * 删除会话，删除{@link #getSessionId()}对应的Session
      */
     void removeSession();
+    
+    /**
+     * 绑定一个会话并返回
+     *
+     * @param session
+     */
+    Session createSession(Map<String, Object> param);
 
     /**
      * 获取报文格式化参数

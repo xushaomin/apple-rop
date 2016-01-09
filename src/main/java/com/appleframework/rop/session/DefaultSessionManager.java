@@ -3,6 +3,8 @@ package com.appleframework.rop.session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.appleframework.rop.utils.UuidUtils;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,5 +32,14 @@ public final class DefaultSessionManager implements SessionManager {
     public void removeSession(String sessionId) {
         sessionCache.remove(sessionId);
     }
+
+	@Override
+	public Session createSession(Map<String, Object> map) {
+		String sessionId = UuidUtils.getUUID();
+		Session session = new SimpleSession();
+		session.setSessionId(sessionId);
+		addSession(sessionId, session);
+		return session;
+	}
 
 }

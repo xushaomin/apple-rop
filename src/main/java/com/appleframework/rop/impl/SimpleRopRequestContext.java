@@ -172,6 +172,15 @@ public class SimpleRopRequestContext implements RopRequestContext {
         }
     }
 
+    //add by xu
+    @Override
+    public Session createSession(Map<String, Object> param) {
+        if (ropContext != null && ropContext.getSessionManager() != null) {
+           session = ropContext.getSessionManager().createSession(param);
+        }
+        return session;
+    }
+    
     @Override
     public Locale getLocale() {
         return this.locale;

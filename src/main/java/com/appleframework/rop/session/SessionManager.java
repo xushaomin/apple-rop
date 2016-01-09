@@ -1,5 +1,7 @@
 package com.appleframework.rop.session;
 
+import java.util.Map;
+
 /**
  * 会话管理器
  *
@@ -30,5 +32,13 @@ public interface SessionManager {
      * @return
      */
     void removeSession(String sessionId);
+    
+    /**
+     * 创建会话对象并注册
+     *
+     * @param sessionId
+     * @return
+     */
+    Session createSession(Map<String, Object> map);
 }
 
