@@ -14,6 +14,7 @@ import com.appleframework.rop.response.ErrorResponse;
  * @author 陈雄华
  * @version 1.0
  */
+@SuppressWarnings("rawtypes")
 public class DefaultCompositeResponse<T> implements CompositeResponse {
 
     private boolean successful;

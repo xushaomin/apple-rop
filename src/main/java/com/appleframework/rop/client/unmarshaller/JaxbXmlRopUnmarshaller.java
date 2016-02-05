@@ -25,9 +25,11 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class JaxbXmlRopUnmarshaller implements RopUnmarshaller {
 
-    private static Map<Class, JAXBContext> jaxbContextHashMap = new ConcurrentHashMap<Class, JAXBContext>();
+	@SuppressWarnings("rawtypes")
+	private static Map<Class, JAXBContext> jaxbContextHashMap = new ConcurrentHashMap<Class, JAXBContext>();
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public <T> T unmarshaller(String content, Class<T> objectType) {
         try {
             Unmarshaller unmarshaller = buildUnmarshaller(objectType);

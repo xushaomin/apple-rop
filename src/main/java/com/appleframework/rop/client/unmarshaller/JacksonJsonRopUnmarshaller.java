@@ -35,16 +35,15 @@ public class JacksonJsonRopUnmarshaller implements RopUnmarshaller {
     }
 
     private ObjectMapper getObjectMapper() throws IOException {
-        if (this.objectMapper == null) {
-            ObjectMapper objectMapper = new ObjectMapper();
+        if (objectMapper == null) {
+            objectMapper = new ObjectMapper();
             AnnotationIntrospector introspector = new JaxbAnnotationIntrospector();
             SerializationConfig serializationConfig = objectMapper.getSerializationConfig();
             serializationConfig = serializationConfig.without(SerializationConfig.Feature.WRAP_ROOT_VALUE)
                                                      .withAnnotationIntrospector(introspector);
             objectMapper.setSerializationConfig(serializationConfig);
-            this.objectMapper = objectMapper;
         }
-        return this.objectMapper;
+        return objectMapper;
     }
 }
 

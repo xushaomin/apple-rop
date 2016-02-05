@@ -14,6 +14,7 @@ import com.appleframework.rop.RopRequest;
  * @author 陈雄华
  * @version 1.0
  */
+@SuppressWarnings("rawtypes")
 public interface ClientRequest {
 
     /**
@@ -47,7 +48,7 @@ public interface ClientRequest {
      * @param <T>
      * @return
      */
-    <T> CompositeResponse post(Class<T> ropResponseClass, String methodName, String version);
+	<T> CompositeResponse post(Class<T> ropResponseClass, String methodName, String version);
 
     /**
      * 直接使用 ropRequest发送请求
