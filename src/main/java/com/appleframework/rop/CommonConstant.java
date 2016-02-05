@@ -13,5 +13,4 @@ public class CommonConstant {
 	
 	public static final String ERROR_CODE = "code";
 
-    public static final String SESSION_CHANGED = "@@SESSION_CHANGED__";
 }

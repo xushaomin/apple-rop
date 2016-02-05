@@ -37,7 +37,6 @@ public final class DefaultSessionManager implements SessionManager {
 	public Session createSession(Map<String, Object> map) {
 		String sessionId = UuidUtils.getUUID();
 		Session session = new SimpleSession();
-		session.setSessionId(sessionId);
 		addSession(sessionId, session);
 		return session;
 	}

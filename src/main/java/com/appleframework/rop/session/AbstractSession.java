@@ -4,8 +4,6 @@
  */
 package com.appleframework.rop.session;
 
-import com.appleframework.rop.CommonConstant;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,10 +15,23 @@ import java.util.Map;
  * @author 陈雄华
  * @version 1.0
  */
-@SuppressWarnings("serial")
 public abstract class AbstractSession implements Session {
+	
+	private static final long serialVersionUID = 2041564829722215502L;
+	
+	private String id;
 
-    private Map<String, Object> attributes = new HashMap<String, Object>();
+	private long creationTime = System.currentTimeMillis();
+
+	private int maxInactiveInterval;
+
+	private long lastAccessedTime = System.currentTimeMillis();
+
+	private boolean invalid = false;
+	
+	private boolean changed = false;
+	
+	private Map<String, Object> attributes = new HashMap<String, Object>();
 
     @Override
     public void setAttribute(String name, Object obj) {
@@ -36,13 +47,7 @@ public abstract class AbstractSession implements Session {
 
     @Override
     public Map<String, Object> getAllAttributes() {
-        Map<String, Object> tempAttributes = new HashMap<String, Object>(attributes.size());
-        for (Map.Entry<String, Object> entry : attributes.entrySet()) {
-            if (!CommonConstant.SESSION_CHANGED.equals(entry.getKey())) {
-                tempAttributes.put(entry.getKey(),entry.getValue());
-            }
-        }
-        return tempAttributes;
+        return this.attributes;
     }
 
     @Override
@@ -53,11 +58,83 @@ public abstract class AbstractSession implements Session {
 
     @Override
     public boolean isChanged() {
-        return attributes.containsKey(CommonConstant.SESSION_CHANGED);
+        return this.changed;
     }
 
     private void markChanged(){
-        attributes.put(CommonConstant.SESSION_CHANGED,Boolean.TRUE);
+        changed = Boolean.TRUE;
     }
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public int getMaxInactiveInterval() {
+		return maxInactiveInterval;
+	}
+
+	public void setMaxInactiveInterval(int maxInactiveInterval) {
+		this.maxInactiveInterval = maxInactiveInterval;
+	}
+
+	public long getLastAccessedTime() {
+		return lastAccessedTime;
+	}
+
+	public void setLastAccessedTime(long lastAccessedTime) {
+		this.lastAccessedTime = lastAccessedTime;
+	}
+
+	public boolean isInvalid() {
+		long lastTime = System.currentTimeMillis() - creationTime;
+		if(invalid && (lastTime - maxInactiveInterval) > 0)
+			return true;
+		else
+			return false;
+	}
+
+	public void setInvalid(boolean invalid) {
+		this.invalid = invalid;
+	}
+
+	public long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(long creationTime) {
+		this.creationTime = creationTime;
+	}
+	
+	/**
+	 * Invalidates this session then unbinds any objects bound to it.
+	 *
+	 * @throws IllegalStateException if this method is called on an already invalidated session
+	 */
+	public void invalidate() {
+		if (this.invalid) {
+			throw new IllegalStateException("The session has already been invalidated");
+		}
+
+		// else
+		this.invalid = true;
+		clearAttributes();
+	}
+	
+	/**
+	 * Clear all of this session's attributes.
+	 */
+	public void clearAttributes() {
+		attributes.clear();
+	}
+
+	@Override
+	public void clearChanged() {
+		changed = Boolean.FALSE;
+	}
+    
 }
 

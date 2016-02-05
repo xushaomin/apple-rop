@@ -4,55 +4,21 @@
  */
 package com.appleframework.rop.session;
 
+import com.appleframework.rop.utils.UuidUtils;
+
 /**
  *
  * @author 陈雄华
  * @version 1.0
  */
 public class SimpleSession extends AbstractSession {
+	
+	private static final long serialVersionUID = 1346637459785314040L;
+	
+	public static final String SESSION_COOKIE_NAME = "ROP_SESSION";
 
-	private static final long serialVersionUID = -6905190691689485375L;
-
-	private String id;
-	private String username;
-	private long time = System.currentTimeMillis();
-	private String sessionId;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public long getTime() {
-		return time;
-	}
-
-	public void setTime(long time) {
-		this.time = time;
-	}
-
-	@Override
-	public long getGenerateTime() {
-		return time;
-	}
-
-	public String getSessionId() {
-		return sessionId;
-	}
-
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
+	public SimpleSession() {
+		setId(UuidUtils.getUUID());
 	}
 	
 }

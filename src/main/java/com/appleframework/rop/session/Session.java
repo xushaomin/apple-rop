@@ -51,16 +51,59 @@ public interface Session extends Serializable {
     /**
      * 获取session创建时间
      */
-    long getGenerateTime();
+    long getCreationTime();
+    
+    /**
+     * 获取session最后操作时间
+     */
+    long getLastAccessedTime();
     
     /**
      * 获取sessionId
      */
-    String getSessionId();
+    String getId();
+    
+
+    /**
+     *
+     * Specifies the time, in seconds, between client requests before the 
+     * servlet container will invalidate this session.  A negative time
+     * indicates the session should never timeout.
+     *
+     * @param interval		An integer specifying the number
+     * 				of seconds 
+     *
+     */
+    
+    void setMaxInactiveInterval(int interval);
+
+   /**
+    * Returns the maximum time interval, in seconds, that 
+    * the servlet container will keep this session open between 
+    * client accesses. After this interval, the servlet container
+    * will invalidate the session.  The maximum time interval can be set
+    * with the <code>setMaxInactiveInterval</code> method.
+    * A negative time indicates the session should never timeout.
+    *  
+    *
+    * @return		an integer specifying the number of
+    *			seconds this session remains open
+    *			between client requests
+    *
+    * @see		#setMaxInactiveInterval
+    *
+    *
+    */
+    int getMaxInactiveInterval();
     
     /**
-     * 设置sessionId
+     * 判断session是否有效（过期无效）
      */
-    void setSessionId(String sessionId);
+    boolean isInvalid();
+    
+    /**
+     * session改动
+     */
+    void clearChanged();
 
 }

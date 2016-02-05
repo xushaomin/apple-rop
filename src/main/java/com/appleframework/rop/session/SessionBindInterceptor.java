@@ -4,7 +4,6 @@
 package com.appleframework.rop.session;
 
 import com.appleframework.rop.AbstractInterceptor;
-import com.appleframework.rop.CommonConstant;
 import com.appleframework.rop.RopRequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +33,7 @@ public class SessionBindInterceptor extends AbstractInterceptor {
     public void beforeResponse(RopRequestContext ropRequestContext) {
         Session session = ropRequestContext.getSession();
         if (session != null && session.isChanged()) {
-            session.removeAttribute(CommonConstant.SESSION_CHANGED);
+            session.clearChanged();
             SessionManager sessionManager = ropRequestContext.getRopContext().getSessionManager();
             sessionManager.addSession(ropRequestContext.getSessionId(), session);
             if (logger.isDebugEnabled()) {
