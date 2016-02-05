@@ -82,7 +82,8 @@ public interface ServiceRouter {
      *
      * @param listener
      */
-    void addListener(RopEventListener listener);
+    @SuppressWarnings("rawtypes")
+	void addListener(RopEventListener listener);
 
     /**
      * 设置{@link com.appleframework.rop.security.SecurityManager}
