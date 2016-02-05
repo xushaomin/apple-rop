@@ -23,7 +23,6 @@ public class MBeanRegiste {
 	/* name的key */
 	public static final String ROP_ID_KEY = "id";
 
-
 	public static void registe() {
 		try {
 			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
