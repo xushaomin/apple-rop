@@ -312,6 +312,10 @@ public class DefaultRopContext implements RopContext {
     	DefaultRopContext.signEnable = signEnable;
     }
     
+    public static boolean readSignEnable() {
+    	return signEnable;
+    }
+    
 
 }
 

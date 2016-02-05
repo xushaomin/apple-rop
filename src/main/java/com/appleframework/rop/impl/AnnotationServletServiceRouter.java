@@ -7,6 +7,7 @@ package com.appleframework.rop.impl;
 import com.appleframework.rop.*;
 import com.appleframework.rop.config.SystemParameterNames;
 import com.appleframework.rop.event.*;
+import com.appleframework.rop.jmx.MBeanRegiste;
 import com.appleframework.rop.marshaller.JacksonJsonRopMarshaller;
 import com.appleframework.rop.marshaller.JaxbXmlRopMarshaller;
 import com.appleframework.rop.marshaller.MessageMarshallerUtils;
@@ -220,6 +221,8 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
         //产生Rop框架初始化事件
         fireAfterStartedRopEvent();
 
+        //注册jmx事件
+        MBeanRegiste.registe();
         if (logger.isInfoEnabled()) {
             logger.info("Rop框架启动成功！");
         }
