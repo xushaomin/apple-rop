@@ -39,14 +39,13 @@ public class DefaultRopContext implements RopContext {
 
     private final Set<String> serviceMethods = new HashSet<String>();
 
-    private boolean signEnable;
+    private static boolean signEnable;
 
     private SessionManager sessionManager;
 
     public DefaultRopContext(ApplicationContext context) {
         registerFromContext(context);
     }
-
 
     public void addServiceMethod(String methodName, String version, ServiceMethodHandler serviceMethodHandler) {
         serviceMethods.add(methodName);
@@ -57,8 +56,6 @@ public class DefaultRopContext implements RopContext {
     public ServiceMethodHandler getServiceMethodHandler(String methodName, String version) {
         return serviceHandlerMap.get(ServiceMethodHandler.methodWithVersion(methodName, version));
     }
-
-
 
     public boolean isValidMethod(String methodName) {
         return serviceMethods.contains(methodName);
@@ -79,7 +76,6 @@ public class DefaultRopContext implements RopContext {
         return serviceHandlerMap;
     }
 
-
     public boolean isSignEnable() {
         return signEnable;
     }
@@ -94,7 +90,7 @@ public class DefaultRopContext implements RopContext {
     }
 
     public void setSignEnable(boolean signEnable) {
-        this.signEnable = signEnable;
+    	DefaultRopContext.signEnable = signEnable;
     }
 
     /**
@@ -312,6 +308,10 @@ public class DefaultRopContext implements RopContext {
         return fileItemFieldNames;
     }
 
+    public static void resetSignEnable(boolean signEnable) {
+    	DefaultRopContext.signEnable = signEnable;
+    }
+    
 
 }
 
