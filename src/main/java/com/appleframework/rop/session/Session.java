@@ -49,28 +49,18 @@ public interface Session extends Serializable {
     boolean isChanged();
     
     /**
-     * 判断会话是否过期 =true是 =false否
-     * @param expire 过期时间 单位 秒
-     * @return
+     * 获取session创建时间
      */
-    boolean isExpire();
+    long getGenerateTime();
     
     /**
-     * 获取SessionId
-     * @return
+     * 获取sessionId
      */
     String getSessionId();
     
     /**
      * 设置sessionId
-     * @return
      */
     void setSessionId(String sessionId);
-    
-    /**
-     * 获取过期时长 单位毫秒
-     * @return
-     */
-    long getExpiresIn();
 
 }
