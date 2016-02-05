@@ -16,20 +16,14 @@ public class MBeanRegiste {
         
     private static Logger logger = Logger.getLogger(MBeanRegiste.class);
     
-	/* 默认的Type */
-	public static final String ROP_DEFAULT_TYPE = "rop";
-	/* type的key */
-	public static final String ROP_TYPE_KEY = "type";
-	/* name的key */
-	public static final String ROP_ID_KEY = "id";
 
 	public static void registe() {
 		try {
 			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 			Hashtable<String, String> properties = new Hashtable<String, String>();
 
-			properties.put(ROP_TYPE_KEY, ROP_DEFAULT_TYPE);
-			properties.put(ROP_ID_KEY, "signEnable");
+			properties.put(SignEnableConfigMBean.ROP_TYPE_KEY, SignEnableConfigMBean.ROP_DEFAULT_TYPE);
+			properties.put(SignEnableConfigMBean.ROP_ID_KEY, "SignEnable");
 					
 			ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
 			

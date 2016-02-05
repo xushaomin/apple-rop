@@ -12,5 +12,4 @@ public class SignEnableConfig implements SignEnableConfigMBean {
 		DefaultRopContext.resetSignEnable(signEnable);
 	}
 	
-	
 }
