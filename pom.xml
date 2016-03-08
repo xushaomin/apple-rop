@@ -126,7 +126,7 @@
             <version>${hibernate.version}</version>
         </dependency>
 		
-		<!-- jackson -->         
+		<!-- jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -141,8 +141,8 @@
 				
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
-    		<artifactId>jackson-databind</artifactId>
-    		<version>${jackson.version}</version>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 		
 		<dependency>
@@ -151,7 +151,6 @@
 			<version>${jackson.version}</version>
 		</dependency>
 		
-
         <!--  JDK1.5依赖包-->
         <dependency>
             <groupId>javax.xml.bind</groupId>
