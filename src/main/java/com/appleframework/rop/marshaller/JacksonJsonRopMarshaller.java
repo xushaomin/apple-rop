@@ -6,13 +6,13 @@ package com.appleframework.rop.marshaller;
 
 import com.appleframework.rop.RopException;
 import com.appleframework.rop.RopMarshaller;
-import org.codehaus.jackson.JsonEncoding;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.map.AnnotationIntrospector;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.AnnotationIntrospector;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -25,11 +25,12 @@ import java.io.OutputStream;
  * @author 陈雄华
  * @version 1.0
  */
+@SuppressWarnings("deprecation")
 public class JacksonJsonRopMarshaller implements RopMarshaller {
 	
     private static ObjectMapper objectMapper;
 
-    public void marshaller(Object object, OutputStream outputStream) {
+	public void marshaller(Object object, OutputStream outputStream) {
         try {
             JsonGenerator jsonGenerator = getObjectMapper().getJsonFactory().createJsonGenerator(outputStream, JsonEncoding.UTF8);
             getObjectMapper().writeValue(jsonGenerator, object);
@@ -42,13 +43,11 @@ public class JacksonJsonRopMarshaller implements RopMarshaller {
         if (JacksonJsonRopMarshaller.objectMapper == null) {
             ObjectMapper objectMapper = new ObjectMapper();
             AnnotationIntrospector introspector = new JaxbAnnotationIntrospector();
-            SerializationConfig serializationConfig = objectMapper.getSerializationConfig();
-            serializationConfig = serializationConfig.without(SerializationConfig.Feature.WRAP_ROOT_VALUE)
-                    .with(SerializationConfig.Feature.INDENT_OUTPUT)
-                    .withSerializationInclusion(JsonSerialize.Inclusion.NON_NULL)
-                    //.withSerializationInclusion(JsonSerialize.Inclusion.NON_EMPTY)
-                    .withAnnotationIntrospector(introspector);
-            objectMapper.setSerializationConfig(serializationConfig);
+            objectMapper.setAnnotationIntrospector(introspector);
+    		objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+    		objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+    		objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    		//objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
             JacksonJsonRopMarshaller.objectMapper = objectMapper;
         }
         return JacksonJsonRopMarshaller.objectMapper;
