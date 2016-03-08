@@ -8,7 +8,6 @@ import com.appleframework.rop.MessageFormat;
 import com.appleframework.rop.RopContext;
 import com.appleframework.rop.ServiceMethodHandler;
 import com.appleframework.rop.config.SystemParameterNames;
-import com.appleframework.rop.session.SessionManager;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.testng.annotations.Test;
@@ -32,7 +31,7 @@ public class ServletRequestContextBuilderTest {
     @Test
     public void testIpParsed() {
         FormattingConversionService conversionService = mock(FormattingConversionService.class);
-        SessionManager sessionManager = mock(SessionManager.class);
+        //SessionManager sessionManager = mock(SessionManager.class);
         ServletRequestContextBuilder requestContextBuilder = new ServletRequestContextBuilder(conversionService);
         RopContext ropContext = mock(RopContext.class);
 
@@ -63,7 +62,7 @@ public class ServletRequestContextBuilderTest {
     @Test
     public void testBuildBySysParams1() throws Exception {
         FormattingConversionService conversionService = mock(FormattingConversionService.class);
-        SessionManager sessionManager = mock(SessionManager.class);
+        //SessionManager sessionManager = mock(SessionManager.class);
         ServletRequestContextBuilder requestContextBuilder = new ServletRequestContextBuilder(conversionService);
 
         RopContext ropContext = mock(RopContext.class);
@@ -112,7 +111,7 @@ public class ServletRequestContextBuilderTest {
     @Test
     public void testBuildBySysParams2() throws Exception {
         FormattingConversionService conversionService = mock(FormattingConversionService.class);
-        SessionManager sessionManager = mock(SessionManager.class);
+        //SessionManager sessionManager = mock(SessionManager.class);
         ServletRequestContextBuilder requestContextBuilder = new ServletRequestContextBuilder(conversionService);
         RopContext ropContext = mock(RopContext.class);
 
@@ -149,6 +148,7 @@ public class ServletRequestContextBuilderTest {
         //创建SimpleRequestContext
         SimpleRopRequestContext requestContext =
                 requestContextBuilder.buildBySysParams(ropContext, new Object(),null);
+        System.out.println(requestContext.getAllParams());
     }
 
     @Test

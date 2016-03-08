@@ -30,7 +30,8 @@ import static org.testng.Assert.*;
  */
 public class DefaultRopContextTest {
 
-    @Test
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Test
     public void testWithoutGroupService() {
         ApplicationContext context = mock(ApplicationContext.class);
         when(context.getBeanNamesForType(Object.class)).thenReturn(new String[]{"service1"});
@@ -53,7 +54,8 @@ public class DefaultRopContextTest {
         assertEquals(definition.getVersion(), "1.0");
     }
 
-    @Test
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Test
     public void testWithGroupService() {
         ApplicationContext context = mock(ApplicationContext.class);
 
@@ -91,7 +93,8 @@ public class DefaultRopContextTest {
         assertEquals(definition2.getVersion(), "2.0");
     }
 
-    @Test
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Test
     public void testIngoreSignField() {
         ApplicationContext context = mock(ApplicationContext.class);
 
