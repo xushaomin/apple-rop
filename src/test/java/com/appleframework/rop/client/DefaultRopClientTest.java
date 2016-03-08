@@ -20,7 +20,7 @@ public class DefaultRopClientTest {
 
     @Test
     public void testPostWithSession() throws Exception {
-
+    	ropClient.toString();
     }
 }
 
