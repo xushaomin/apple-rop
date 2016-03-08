@@ -8,11 +8,13 @@ import com.appleframework.rop.MessageFormat;
 import com.appleframework.rop.RopException;
 import com.appleframework.rop.RopRequestParseException;
 import com.appleframework.rop.impl.SimpleRopRequestContext;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.map.AnnotationIntrospector;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.AnnotationIntrospector;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
+
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.ConditionalGenericConverter;
 import org.springframework.http.converter.HttpMessageConversionException;
@@ -37,19 +39,17 @@ import java.util.concurrent.ConcurrentMap;
  * @author 陈雄华
  * @version 1.0
  */
+@SuppressWarnings("deprecation")
 public class RopRequestMessageConverter implements ConditionalGenericConverter {
 
-    @SuppressWarnings("rawtypes")
-	private static final ConcurrentMap<Class, JAXBContext> jaxbContexts = new ConcurrentHashMap<Class, JAXBContext>();
+	private static final ConcurrentMap<Class<?>, JAXBContext> jaxbContexts = new ConcurrentHashMap<Class<?>, JAXBContext>();
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     static {
         AnnotationIntrospector introspector = new JaxbAnnotationIntrospector();
-        SerializationConfig serializationConfig = objectMapper.getSerializationConfig();
-        serializationConfig = serializationConfig.without(SerializationConfig.Feature.WRAP_ROOT_VALUE)
-                                                 .withAnnotationIntrospector(introspector);
-        objectMapper.setSerializationConfig(serializationConfig);
+        objectMapper.setAnnotationIntrospector(introspector);
+		objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
     }
 
 
@@ -69,7 +69,7 @@ public class RopRequestMessageConverter implements ConditionalGenericConverter {
         return Collections.singleton(new ConvertiblePair(String.class, Object.class));
     }
 
-    public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+	public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
         try {
             if (SimpleRopRequestContext.messageFormat.get() == MessageFormat.json) {//输入格式为JSON
                 JsonParser jsonParser = objectMapper.getJsonFactory().createJsonParser((String) source);
