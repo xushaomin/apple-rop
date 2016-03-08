@@ -39,6 +39,7 @@ import java.util.*;
  * @author 陈雄华
  * @version 1.0
  */
+@SuppressWarnings("rawtypes")
 public class DefaultRopClient implements RopClient {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -230,7 +231,7 @@ public class DefaultRopClient implements RopClient {
             return post(ropResponseClass, requestParams);
         }
 
-        @Override
+		@Override
         public <T> CompositeResponse post(RopRequest ropRequest, Class<T> ropResponseClass, String methodName, String version) {
             Map<String, String> requestParams = getRequestForm(ropRequest, methodName, version);
             return post(ropResponseClass, requestParams);
@@ -383,7 +384,7 @@ public class DefaultRopClient implements RopClient {
          * @param mf
          * @return
          */
-        private Map<String, String> toParamValueMap(RopRequest ropRequest, MessageFormat mf) {
+		private Map<String, String> toParamValueMap(RopRequest ropRequest, MessageFormat mf) {
             List<Field> fields = requestAllFields.get(ropRequest.getClass());
             Map<String, String> params = new HashMap<String, String>();
             for (Field field : fields) {
