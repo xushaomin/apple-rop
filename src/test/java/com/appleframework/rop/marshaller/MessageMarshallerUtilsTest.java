@@ -4,7 +4,6 @@
  */
 package com.appleframework.rop.marshaller;
 
-import com.beust.jcommander.internal.Maps;
 import com.appleframework.rop.MessageFormat;
 import com.appleframework.rop.RopRequest;
 import com.appleframework.rop.RopRequestContext;
