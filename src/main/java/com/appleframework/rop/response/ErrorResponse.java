@@ -40,7 +40,7 @@ public class ErrorResponse{
     protected String solution;
 
     @XmlElementWrapper(name = "subErrors")
-    @XmlElement(name = "subError")
+    @XmlElement(name = "subErrors")
     protected List<SubError> subErrors;
 
     public ErrorResponse() {
