@@ -16,6 +16,7 @@ import com.appleframework.rop.request.UploadFileConverter;
 import com.appleframework.rop.response.ErrorResponse;
 import com.appleframework.rop.response.RejectedServiceResponse;
 import com.appleframework.rop.response.ServiceUnavailableErrorResponse;
+import com.appleframework.rop.response.ServiceUnavailableErrorYYYResponse;
 import com.appleframework.rop.response.TimeoutErrorResponse;
 import com.appleframework.rop.security.*;
 import com.appleframework.rop.security.SecurityManager;
@@ -660,9 +661,14 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
             } catch (Exception e) { //出错则招聘服务不可用的异常
                 if (logger.isInfoEnabled()) {
                     logger.info("调用" + context.getMethod() + "时发生异常，异常信息为：" + e.getMessage());
-                    e.printStackTrace();
                 }
-                ropResponse = new ServiceUnavailableErrorResponse(context.getMethod(), context.getLocale(), e);
+                if(context.isDeubgEnable()) {
+                	ropResponse = new ServiceUnavailableErrorResponse(context.getMethod(), context.getLocale(), e);
+                }
+                else {
+                	ropResponse = new ServiceUnavailableErrorYYYResponse(context.getMethod(), context.getLocale());
+                }
+                
             }
         }
         return ropResponse;
