@@ -212,6 +212,13 @@ public interface RopRequestContext {
      * @return
      */
     boolean isSignEnable();
+    
+    /**
+     * 该方法是否开启调试的功能
+     *
+     * @return
+     */
+    boolean isDeubgEnable();
 
     /**
      * 获取请求参数列表

@@ -23,16 +23,24 @@ public class MBeanRegiste {
 			Hashtable<String, String> properties = new Hashtable<String, String>();
 
 			properties.put(SignEnableConfigMBean.ROP_TYPE_KEY, SignEnableConfigMBean.ROP_DEFAULT_TYPE);
-			properties.put(SignEnableConfigMBean.ROP_ID_KEY, "SignEnable");
-					
-			ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
 			
-			SignEnableConfig mbean = new SignEnableConfig();
-
-			if (mbs.isRegistered(oname)) {
-				mbs.unregisterMBean(oname);
+			//regist signEanbale
+			properties.put(SignEnableConfigMBean.ROP_ID_KEY, "SignEnable");
+			ObjectName signEnableName = ObjectName.getInstance("com.appleframework", properties);
+			SignEnableConfig signEnableBean = new SignEnableConfig();
+			if (mbs.isRegistered(signEnableName)) {
+				mbs.unregisterMBean(signEnableName);
 			}
-			mbs.registerMBean(mbean, oname);            
+			mbs.registerMBean(signEnableBean, signEnableName);
+			
+			//regist debugEnable
+			properties.put(SignEnableConfigMBean.ROP_ID_KEY, "DebugEnable");
+			ObjectName debugEnableName = ObjectName.getInstance("com.appleframework", properties);
+			DebugEnableConfig debugEnableBean = new DebugEnableConfig();
+			if (mbs.isRegistered(debugEnableName)) {
+				mbs.unregisterMBean(debugEnableName);
+			}
+			mbs.registerMBean(debugEnableBean, debugEnableName);      
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}

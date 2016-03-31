@@ -22,13 +22,17 @@ public enum SubErrorType {
     ISV_INVALID_PERMISSION,
     ISV_MISSING_PARAMETER,
     ISV_INVALID_PARAMETE,
-    ISV_PARAMETERS_MISMATCH;
+    ISV_PARAMETERS_MISMATCH,
+    
+    ISP_SERVICE_UNAVAILABLE_YYY,;
 
     private static EnumMap<SubErrorType, String> errorKeyMap = new EnumMap<SubErrorType, String>(SubErrorType.class);
 
     static {
         errorKeyMap.put(SubErrorType.ISP_SERVICE_UNAVAILABLE, "isp.xxx-service-unavailable");
         errorKeyMap.put(SubErrorType.ISP_SERVICE_TIMEOUT, "isp.xxx-service-timeout");
+        
+        errorKeyMap.put(SubErrorType.ISP_SERVICE_UNAVAILABLE_YYY, "isp.yyy-service-unavailable");
 
         errorKeyMap.put(SubErrorType.ISV_NOT_EXIST, "isv.xxx-not-exist:invalid-yyy");
         errorKeyMap.put(SubErrorType.ISV_MISSING_PARAMETER, "isv.missing-parameter:xxx");

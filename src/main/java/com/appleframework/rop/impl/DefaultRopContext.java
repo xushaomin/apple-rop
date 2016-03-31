@@ -40,6 +40,8 @@ public class DefaultRopContext implements RopContext {
     private final Set<String> serviceMethods = new HashSet<String>();
 
     private static boolean signEnable;
+    
+    private static boolean debugEnable = false;
 
     private SessionManager sessionManager;
 
@@ -80,7 +82,10 @@ public class DefaultRopContext implements RopContext {
         return signEnable;
     }
 
-
+    public void setSignEnable(boolean signEnable) {
+    	DefaultRopContext.signEnable = signEnable;
+    }
+    
     public SessionManager getSessionManager() {
         return this.sessionManager;
     }
@@ -89,11 +94,15 @@ public class DefaultRopContext implements RopContext {
         this.sessionManager = sessionManager;
     }
 
-    public void setSignEnable(boolean signEnable) {
-    	DefaultRopContext.signEnable = signEnable;
-    }
+    public boolean isDebugEnable() {
+		return debugEnable;
+	}
 
-    /**
+	public void setDebugEnable(boolean debugEnable) {
+		DefaultRopContext.debugEnable = debugEnable;
+	}
+
+	/**
      * 扫描Spring容器中的Bean，查找有标注{@link ServiceMethod}注解的服务方法，将它们注册到{@link RopContext}中缓存起来。
      *
      * @throws org.springframework.beans.BeansException
@@ -314,6 +323,14 @@ public class DefaultRopContext implements RopContext {
     
     public static boolean readSignEnable() {
     	return signEnable;
+    }
+    
+    public static void resetDebugEnable(boolean debugEnable) {
+    	DefaultRopContext.debugEnable = debugEnable;
+    }
+    
+    public static boolean readDebugEnable() {
+    	return debugEnable;
     }
     
 

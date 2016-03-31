@@ -279,6 +279,11 @@ public class SimpleRopRequestContext implements RopRequestContext {
     }
 
     @Override
+	public boolean isDeubgEnable() {
+		return ropContext.isDebugEnable();
+	}
+
+	@Override
     public ServiceMethodDefinition getServiceMethodDefinition() {
         return serviceMethodHandler.getServiceMethodDefinition();
     }
