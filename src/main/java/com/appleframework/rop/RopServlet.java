@@ -58,6 +58,7 @@ public class RopServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
+    	Version.logVersion();
         ApplicationContext ctx = getApplicationContext(servletConfig);
         this.serviceRouter = ctx.getBean(ServiceRouter.class);
         if (this.serviceRouter == null) {

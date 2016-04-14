@@ -5,7 +5,6 @@
 package com.appleframework.rop.config;
 
 import com.appleframework.rop.ThreadFerry;
-import com.appleframework.rop.Version;
 import com.appleframework.rop.impl.AnnotationServletServiceRouterFactoryBean;
 import com.appleframework.rop.impl.DefaultServiceAccessController;
 import com.appleframework.rop.security.DefaultInvokeTimesController;
@@ -43,10 +42,6 @@ public class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParse
     
     @Override
     public BeanDefinition parse(Element element, ParserContext parserContext) {
-    	
-    	//打印版本号
-    	Version.logVersion();
-    	
         Object source = parserContext.extractSource(element);
         CompositeComponentDefinition compDefinition = new CompositeComponentDefinition(element.getTagName(), source);
         parserContext.pushContainingComponent(compDefinition);
