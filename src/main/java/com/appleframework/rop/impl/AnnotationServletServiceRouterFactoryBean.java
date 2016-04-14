@@ -57,6 +57,8 @@ public class AnnotationServletServiceRouterFactoryBean
     private InvokeTimesController invokeTimesController;
 
     private boolean signEnable = true;
+    
+    private boolean debugEnable = true;
 
     private String extErrorBasename;
 
@@ -153,6 +155,7 @@ public class AnnotationServletServiceRouterFactoryBean
         serviceRouter.setSecurityManager(securityManager);
         serviceRouter.setThreadPoolExecutor(threadPoolExecutor);
         serviceRouter.setSignEnable(signEnable);
+        serviceRouter.setDebugEnable(debugEnable);
         serviceRouter.setServiceTimeoutSeconds(serviceTimeoutSeconds);
         serviceRouter.setFormattingConversionService(formattingConversionService);
         serviceRouter.setSessionManager(sessionManager);
@@ -255,7 +258,12 @@ public class AnnotationServletServiceRouterFactoryBean
         this.signEnable = signEnable;
     }
 
-    public void setExtErrorBasename(String extErrorBasename) {
+    public void setDebugEnable(boolean debugEnable) {
+		this.debugEnable = debugEnable;
+	}
+
+
+	public void setExtErrorBasename(String extErrorBasename) {
         this.extErrorBasename = extErrorBasename;
     }
 

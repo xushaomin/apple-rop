@@ -78,6 +78,8 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
     private List<RopEventListener> listeners = new ArrayList<RopEventListener>();
 
     private boolean signEnable = true;
+    
+    private boolean debugEnable = true;
 
     private ApplicationContext applicationContext;
 
@@ -254,6 +256,13 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
             logger.warn("rop close request message sign");
         }
         this.signEnable = signEnable;
+    }
+    
+    public void setDebugEnable(boolean debugEnable) {
+        if (!debugEnable && logger.isWarnEnabled()) {
+            logger.warn("rop close request debug mode");
+        }
+        this.debugEnable = debugEnable;
     }
 
 
@@ -511,6 +520,7 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
     private RopContext buildRopContext() {
         DefaultRopContext defaultRopContext = new DefaultRopContext(this.applicationContext);
         defaultRopContext.setSignEnable(this.signEnable);
+        defaultRopContext.setDebugEnable(this.debugEnable);
         defaultRopContext.setSessionManager(sessionManager);
         return defaultRopContext;
     }
@@ -732,7 +742,11 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
         return signEnable;
     }
 
-    public ApplicationContext getApplicationContext() {
+    public boolean isDebugEnable() {
+		return debugEnable;
+	}
+
+	public ApplicationContext getApplicationContext() {
         return applicationContext;
     }
 

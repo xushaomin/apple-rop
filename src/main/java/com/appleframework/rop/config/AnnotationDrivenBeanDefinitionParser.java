@@ -5,6 +5,7 @@
 package com.appleframework.rop.config;
 
 import com.appleframework.rop.ThreadFerry;
+import com.appleframework.rop.Version;
 import com.appleframework.rop.impl.AnnotationServletServiceRouterFactoryBean;
 import com.appleframework.rop.impl.DefaultServiceAccessController;
 import com.appleframework.rop.security.DefaultInvokeTimesController;
@@ -42,6 +43,10 @@ public class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParse
     
     @Override
     public BeanDefinition parse(Element element, ParserContext parserContext) {
+    	
+    	//打印版本号
+    	Version.logVersion();
+    	
         Object source = parserContext.extractSource(element);
         CompositeComponentDefinition compDefinition = new CompositeComponentDefinition(element.getTagName(), source);
         parserContext.pushContainingComponent(compDefinition);
@@ -81,6 +86,9 @@ public class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParse
 
         //设置signEnable
         setSignEnable(element, serviceRouterDef);
+        
+        //设置debugEnable
+        setDebugEnable(element, serviceRouterDef);
 
         //设置threadFerryClass
         setThreadFerry(element, serviceRouterDef);
@@ -168,6 +176,16 @@ public class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParse
                 logger.debug("Rop配置请求数据签名开关为{}",signEnable);
             }
             serviceRouterDef.getPropertyValues().addPropertyValue("signEnable", signEnable);
+        }
+    }
+    
+    private void setDebugEnable(Element element, RootBeanDefinition serviceRouterDef) {
+        String debugEnable = element.getAttribute("debug-enable");
+        if (StringUtils.hasText(debugEnable)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Rop配置请求数据调试模式开关为{}",debugEnable);
+            }
+            serviceRouterDef.getPropertyValues().addPropertyValue("debugEnable", debugEnable);
         }
     }
 

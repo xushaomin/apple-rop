@@ -105,6 +105,13 @@ public interface ServiceRouter {
      * @param signEnable
      */
     void setSignEnable(boolean signEnable);
+    
+    /**
+     * 设置是否需要开启调试模式
+     *
+     * @param debugEnable
+     */
+    void setDebugEnable(boolean debugEnable);
 
     /**
      * 设置所有服务的通用过期时间，单位为秒
