@@ -27,7 +27,7 @@ public class MBeanRegiste {
 			//regist signEanbale
 			properties.put(SignEnableConfigMBean.ROP_ID_KEY, "SignEnable");
 			ObjectName signEnableName = ObjectName.getInstance("com.appleframework", properties);
-			SignEnableConfig signEnableBean = new SignEnableConfig();
+			SignEnableConfigMBean signEnableBean = new SignEnableConfig();
 			if (mbs.isRegistered(signEnableName)) {
 				mbs.unregisterMBean(signEnableName);
 			}
@@ -36,11 +36,20 @@ public class MBeanRegiste {
 			//regist debugEnable
 			properties.put(SignEnableConfigMBean.ROP_ID_KEY, "DebugEnable");
 			ObjectName debugEnableName = ObjectName.getInstance("com.appleframework", properties);
-			DebugEnableConfig debugEnableBean = new DebugEnableConfig();
+			DebugEnableConfigMBean debugEnableBean = new DebugEnableConfig();
 			if (mbs.isRegistered(debugEnableName)) {
 				mbs.unregisterMBean(debugEnableName);
 			}
-			mbs.registerMBean(debugEnableBean, debugEnableName);      
+			mbs.registerMBean(debugEnableBean, debugEnableName);
+			
+			//regist monitorEnable
+			properties.put(SignEnableConfigMBean.ROP_ID_KEY, "MonitorEnable");
+			ObjectName monitorEnableName = ObjectName.getInstance("com.appleframework", properties);
+			MonitorEnableConfigMBean monitorEnableBean = new MonitorEnableConfig();
+			if (mbs.isRegistered(monitorEnableName)) {
+				mbs.unregisterMBean(monitorEnableName);
+			}
+			mbs.registerMBean(monitorEnableBean, monitorEnableName);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}

@@ -3,7 +3,10 @@
  */
 package com.appleframework.rop;
 
+import com.appleframework.rop.impl.DefaultRopContext;
 import com.appleframework.rop.security.AppSecretManager;
+import com.appleframework.rop.security.MonitorManager;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -41,6 +44,8 @@ public class RopServlet extends HttpServlet {
 	protected  Logger logger = LoggerFactory.getLogger(getClass());
 
     private ServiceRouter serviceRouter;
+    
+    private MonitorManager monitorManager;
 
 
     /**
@@ -53,7 +58,11 @@ public class RopServlet extends HttpServlet {
      */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        serviceRouter.service(req, resp);
+    	long t = System.currentTimeMillis();
+    	serviceRouter.service(req, resp);
+    	if(DefaultRopContext.readMonitorEnable() && null != monitorManager) {
+    		monitorManager.doMonitor(req, (System.currentTimeMillis() - t));
+    	}
     }
 
     @Override
@@ -65,6 +74,15 @@ public class RopServlet extends HttpServlet {
             logger.error("在Spring容器中未找到" + ServiceRouter.class.getName() +
                     "的Bean,请在Spring配置文件中通过<aop:annotation-driven/>安装rop框架。");
         }
+        
+        try {
+            this.monitorManager = ctx.getBean(MonitorManager.class);
+		} catch (Exception e) {
+			if(DefaultRopContext.readMonitorEnable()) {
+				logger.error("在Spring容器中未找到" + MonitorManager.class.getName() +
+	                    "的Bean,请在Spring配置文件中通过<aop:annotation-driven/>安装MonitorManager。");
+			}
+		}
     }
 
     private ApplicationContext getApplicationContext(ServletConfig servletConfig) {

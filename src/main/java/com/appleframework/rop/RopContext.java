@@ -82,6 +82,13 @@ public interface RopContext {
      * @return
      */
     boolean isDebugEnable();
+    
+    /**
+     * 是开启监控功能
+     *
+     * @return
+     */
+    boolean isMonitorEnable();
 
     /**
      * 获取会话管理器

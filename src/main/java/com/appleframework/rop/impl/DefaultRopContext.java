@@ -42,6 +42,8 @@ public class DefaultRopContext implements RopContext {
     private static boolean signEnable;
     
     private static boolean debugEnable = false;
+    
+    private static boolean monitorEnable = false;
 
     private SessionManager sessionManager;
 
@@ -100,6 +102,14 @@ public class DefaultRopContext implements RopContext {
 
 	public void setDebugEnable(boolean debugEnable) {
 		DefaultRopContext.debugEnable = debugEnable;
+	}
+	
+	public boolean isMonitorEnable() {
+		return monitorEnable;
+	}
+
+	public void setMonitorEnable(boolean monitorEnable) {
+		DefaultRopContext.monitorEnable = monitorEnable;
 	}
 
 	/**
@@ -333,6 +343,12 @@ public class DefaultRopContext implements RopContext {
     	return debugEnable;
     }
     
-
+    public static void resetMonitorEnable(boolean monitorEnable) {
+    	DefaultRopContext.monitorEnable = monitorEnable;
+    }
+    
+    public static boolean readMonitorEnable() {
+    	return monitorEnable;
+    }
 }
 

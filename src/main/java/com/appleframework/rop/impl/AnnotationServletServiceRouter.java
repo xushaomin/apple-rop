@@ -80,6 +80,8 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
     private boolean signEnable = true;
     
     private boolean debugEnable = true;
+    
+    private boolean monitorEnable = true;
 
     private ApplicationContext applicationContext;
 
@@ -265,6 +267,12 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
         this.debugEnable = debugEnable;
     }
 
+    public void setMonitorEnable(boolean monitorEnable) {
+        if (!monitorEnable && logger.isWarnEnabled()) {
+            logger.warn("rop close request monitor mode");
+        }
+        this.monitorEnable = monitorEnable;
+    }
 
     public void setThreadFerryClass(Class<? extends ThreadFerry> threadFerryClass) {
         if (logger.isDebugEnabled()) {
@@ -521,6 +529,7 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
         DefaultRopContext defaultRopContext = new DefaultRopContext(this.applicationContext);
         defaultRopContext.setSignEnable(this.signEnable);
         defaultRopContext.setDebugEnable(this.debugEnable);
+        defaultRopContext.setMonitorEnable(this.monitorEnable);
         defaultRopContext.setSessionManager(sessionManager);
         return defaultRopContext;
     }
@@ -744,6 +753,10 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
 
     public boolean isDebugEnable() {
 		return debugEnable;
+	}
+
+	public boolean isMonitorEnable() {
+		return monitorEnable;
 	}
 
 	public ApplicationContext getApplicationContext() {

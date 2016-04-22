@@ -59,6 +59,8 @@ public class AnnotationServletServiceRouterFactoryBean
     private boolean signEnable = true;
     
     private boolean debugEnable = true;
+    
+    private boolean monitorEnable = false;
 
     private String extErrorBasename;
 
@@ -156,6 +158,7 @@ public class AnnotationServletServiceRouterFactoryBean
         serviceRouter.setThreadPoolExecutor(threadPoolExecutor);
         serviceRouter.setSignEnable(signEnable);
         serviceRouter.setDebugEnable(debugEnable);
+        serviceRouter.setMonitorEnable(monitorEnable);
         serviceRouter.setServiceTimeoutSeconds(serviceTimeoutSeconds);
         serviceRouter.setFormattingConversionService(formattingConversionService);
         serviceRouter.setSessionManager(sessionManager);
@@ -261,7 +264,10 @@ public class AnnotationServletServiceRouterFactoryBean
     public void setDebugEnable(boolean debugEnable) {
 		this.debugEnable = debugEnable;
 	}
-
+    
+	public void setMonitorEnable(boolean monitorEnable) {
+		this.monitorEnable = monitorEnable;
+	}
 
 	public void setExtErrorBasename(String extErrorBasename) {
         this.extErrorBasename = extErrorBasename;
