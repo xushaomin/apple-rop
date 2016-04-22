@@ -61,7 +61,7 @@ public class RopServlet extends HttpServlet {
     	long t = System.currentTimeMillis();
     	serviceRouter.service(req, resp);
     	if(DefaultRopContext.readMonitorEnable() && null != monitorManager) {
-    		monitorManager.doMonitor(req, (System.currentTimeMillis() - t));
+    		monitorManager.doMonitor(req, t);
     	}
     }
 
