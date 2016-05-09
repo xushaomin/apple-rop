@@ -10,6 +10,7 @@ import com.appleframework.rop.config.SystemParameterNames;
 import com.appleframework.rop.impl.DefaultServiceAccessController;
 import com.appleframework.rop.impl.SimpleRopRequestContext;
 import com.appleframework.rop.request.UploadFileUtils;
+import com.appleframework.rop.session.Session;
 import com.appleframework.rop.session.SessionManager;
 import com.appleframework.rop.utils.RopUtils;
 
@@ -389,18 +390,24 @@ public class DefaultSecurityManager implements SecurityManager {
                     return MainErrors.getError(MainErrorType.INVALID_SESSION, context.getLocale(),
                             context.getMethod(), context.getVersion(),context.getSessionId());
                 }
+                else {
+                	
+                }
             }
         }
         return null;
     }
 
     private boolean isValidSession(RopRequestContext smc) {
-        if (sessionManager.getSession(smc.getSessionId()) == null) {
+    	Session session = sessionManager.getSession(smc.getSessionId());
+        if (session == null) {
             if (logger.isDebugEnabled()) {
                 logger.debug(smc.getSessionId() + "会话不存在，请检查。");
             }
             return false;
         } else {
+        	//如果会话存在，设置到RequestContext中区，以前下次还从sessionManager.getSession中获取
+        	smc.setSession(session);
             return true;
         }
     }

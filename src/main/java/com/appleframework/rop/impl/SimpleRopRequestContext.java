@@ -182,6 +182,11 @@ public class SimpleRopRequestContext implements RopRequestContext {
     }
     
     @Override
+	public void setSession(Session session) {
+		this.session = session;
+	}
+
+	@Override
     public Locale getLocale() {
         return this.locale;
     }
