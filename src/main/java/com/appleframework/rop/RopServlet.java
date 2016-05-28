@@ -60,8 +60,9 @@ public class RopServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	long t = System.currentTimeMillis();
     	serviceRouter.service(req, resp);
-    	if(DefaultRopContext.readMonitorEnable() && null != monitorManager) {
-    		monitorManager.doMonitor(req, t);
+    	if(DefaultRopContext.readMonitorEnable()) {
+    		if(null != monitorManager)
+    			monitorManager.doMonitor(req, t);
     	}
     }
 
