@@ -447,8 +447,7 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
             RopRequest ropRequest = null;
             try {
                 //用系统级参数构造一个RequestContext实例（第一阶段绑定）
-                ropRequestContext = requestContextBuilder.buildBySysParams(
-                        ropContext, servletRequest, servletResponse);
+                ropRequestContext = requestContextBuilder.buildBySysParams(ropContext, servletRequest, servletResponse);
 
                 //验证系统级参数的合法性
                 MainError mainError = securityManager.validateSystemParameters(ropRequestContext);
