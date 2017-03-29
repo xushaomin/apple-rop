@@ -152,6 +152,7 @@
 		</dependency>
 		
         <!--  JDK1.5依赖包-->
+        <!-- 
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -172,6 +173,7 @@
             <artifactId>activation</artifactId>
             <version>${activation.version}</version>
         </dependency>
+         -->
 
 		<!-- test -->
         <dependency>
