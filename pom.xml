@@ -112,6 +112,13 @@
             <version>${spring.version}</version>
             <scope>provided</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -216,6 +223,16 @@
             <artifactId>unitils-spring</artifactId>
             <version>${unitils.version}</version>
             <scope>test</scope>
+            <exclusions>
+            	<exclusion>
+            		<groupId>org.springframework</groupId>
+					<artifactId>spring-jdbc</artifactId>
+            	</exclusion>
+            	<exclusion>
+            		<groupId>org.springframework</groupId>
+					<artifactId>spring-tx</artifactId>
+            	</exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -323,12 +340,12 @@
             </activation>
             <distributionManagement>
                 <repository>
-                    <id>apple-releases</id>
-                    <url>http://mvnrepo.appleframework.com:8081/nexus/content/repositories/releases/</url>
+                    <id>nexus-releases</id>
+                    <url>http://nexus.appleframework.com:8081/nexus/content/repositories/releases/</url>
                 </repository>
                 <snapshotRepository>
-                    <id>apple-snapshots</id>
-                    <url>http://mvnrepo.appleframework.com:8081/nexus/content/repositories/snapshots/</url>
+                    <id>nexus-snapshots</id>
+                    <url>http://nexus.appleframework.com:8081/nexus/content/repositories/snapshots/</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>
