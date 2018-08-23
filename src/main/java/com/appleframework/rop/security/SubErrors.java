@@ -76,11 +76,21 @@ public class SubErrors {
         try {
             String parsedSubErrorMessage = messageSourceAccessor.getMessage(subErrorKey, params, locale);
             return new SubError(subErrorCode, parsedSubErrorMessage);
-        } catch (NoSuchMessageException e) {
-            logger.error("不存在对应的错误键：{}，请检查是否正确配置了应用的错误资源，" +
-                    "默认位置：i18n/rop/ropError", subErrorCode);
-            throw e;
-        }
+		} catch (NoSuchMessageException e) {
+			logger.error("不存在对应的错误键：{}，请检查是否正确配置了应用的错误资源，" + "默认位置：i18n/rop/ropError", subErrorCode);
+			throw e;
+		}
+    }
+    
+    /**
+     * @param subErrorCode 子错误代码
+     * @param subErrorKey  子错误信息键
+     * @param locale       本地化
+     * @param params       本地化消息参数
+     * @return
+     */
+    public static SubError getSubError(String subErrorCode, String subErrorMessage) {
+    	return new SubError(subErrorCode, subErrorMessage);
     }
 
     public static String getSubErrorCode(SubErrorType subErrorType, Object... params) {

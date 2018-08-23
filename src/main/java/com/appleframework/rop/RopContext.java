@@ -77,6 +77,13 @@ public interface RopContext {
     boolean isSignEnable();
     
     /**
+     * 查看API访问方式是否是采用method=xxx
+     *
+     * @return
+     */
+    boolean isMethodMode();
+    
+    /**
      * 是开启调试功能
      *
      * @return
@@ -95,6 +102,12 @@ public interface RopContext {
      * @return
      */
     SessionManager getSessionManager();
+    
+    /**
+     * 获取异常处理类
+     * @return
+     */
+    Class<? extends Exception> getServiceExceptionClass();
 
 }
 

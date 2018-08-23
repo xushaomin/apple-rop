@@ -79,6 +79,8 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
 
     private boolean signEnable = true;
     
+    private boolean methodMode = true;
+    
     private boolean debugEnable = true;
     
     private boolean monitorEnable = true;
@@ -99,14 +101,21 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
     private String extErrorBasename;
 
     private String[] extErrorBasenames;
-
+    
+    private Class<? extends Exception> serviceExceptionClass;
 
     public void service(Object request, Object response) {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         HttpServletResponse servletResponse = (HttpServletResponse) response;
 
         //获取服务方法最大过期时间
-        String method = servletRequest.getParameter(SystemParameterNames.getMethod());
+        String method = null;
+        if(isMethodMode()) {
+        	method = servletRequest.getParameter(SystemParameterNames.getMethod());
+        }
+        else {
+        	method = servletRequest.getServletPath();
+        }
         String version = servletRequest.getParameter(SystemParameterNames.getVersion());
         if (logger.isDebugEnabled()) {
             logger.debug("调用服务方法：" + method + "(" + version + ")");
@@ -246,18 +255,23 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
         }
     }
 
-
     public void shutdown() {
         fireBeforeCloseRopEvent();
         threadPoolExecutor.shutdown();
     }
-
 
     public void setSignEnable(boolean signEnable) {
         if (!signEnable && logger.isWarnEnabled()) {
             logger.warn("rop close request message sign");
         }
         this.signEnable = signEnable;
+    }
+    
+    public void setMethodMode(boolean methodMode) {
+        if (!methodMode && logger.isWarnEnabled()) {
+            logger.warn("rop close request method mode");
+        }
+        this.methodMode = methodMode;
     }
     
     public void setDebugEnable(boolean debugEnable) {
@@ -527,9 +541,11 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
     private RopContext buildRopContext() {
         DefaultRopContext defaultRopContext = new DefaultRopContext(this.applicationContext);
         defaultRopContext.setSignEnable(this.signEnable);
+        defaultRopContext.setMethodMode(this.methodMode);
         defaultRopContext.setDebugEnable(this.debugEnable);
         defaultRopContext.setMonitorEnable(this.monitorEnable);
-        defaultRopContext.setSessionManager(sessionManager);
+        defaultRopContext.setSessionManager(this.sessionManager);
+        defaultRopContext.setServiceExceptionClass(this.serviceExceptionClass);
         return defaultRopContext;
     }
 
@@ -749,6 +765,10 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
     public boolean isSignEnable() {
         return signEnable;
     }
+    
+    public boolean isMethodMode() {
+        return methodMode;
+    }
 
     public boolean isDebugEnable() {
 		return debugEnable;
@@ -766,4 +786,10 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
         return extErrorBasename;
     }
 
+	public void setServiceExceptionClass(Class<? extends Exception> serviceExceptionClass) {
+		if (logger.isDebugEnabled()) {
+            logger.debug("serviceExceptionClass set to {}", serviceExceptionClass);
+        }
+		this.serviceExceptionClass = serviceExceptionClass;
+	}
 }

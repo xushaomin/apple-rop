@@ -4,11 +4,14 @@
  */
 package com.appleframework.rop.impl;
 
-import com.appleframework.rop.*;
-import com.appleframework.rop.annotation.HttpAction;
-import com.appleframework.rop.config.SystemParameterNames;
-import com.appleframework.rop.security.MainErrorType;
-import com.appleframework.rop.security.MainErrors;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -21,12 +24,17 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.ServletRequestDataBinder;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import com.appleframework.rop.AbstractRopRequest;
+import com.appleframework.rop.MessageFormat;
+import com.appleframework.rop.RequestContextBuilder;
+import com.appleframework.rop.RopContext;
+import com.appleframework.rop.RopRequest;
+import com.appleframework.rop.RopRequestContext;
+import com.appleframework.rop.ServiceMethodHandler;
+import com.appleframework.rop.annotation.HttpAction;
+import com.appleframework.rop.config.SystemParameterNames;
+import com.appleframework.rop.security.MainErrorType;
+import com.appleframework.rop.security.MainErrors;
 
 /**
  * <pre>
@@ -78,7 +86,7 @@ public class ServletRequestContextBuilder implements RequestContextBuilder {
         //设置服务的系统级参数
         requestContext.setAppKey(servletRequest.getParameter(SystemParameterNames.getAppKey()));
         requestContext.setSessionId(servletRequest.getParameter(SystemParameterNames.getSessionId()));
-        requestContext.setMethod(servletRequest.getParameter(SystemParameterNames.getMethod()));
+        //requestContext.setMethod(servletRequest.getParameter(SystemParameterNames.getMethod()));
         requestContext.setVersion(servletRequest.getParameter(SystemParameterNames.getVersion()));
         requestContext.setLocale(getLocale(servletRequest));
         requestContext.setFormat(getFormat(servletRequest));
@@ -86,6 +94,12 @@ public class ServletRequestContextBuilder implements RequestContextBuilder {
         requestContext.setSign(servletRequest.getParameter(SystemParameterNames.getSign()));
         requestContext.setHttpAction(HttpAction.fromValue(servletRequest.getMethod()));
 
+        if(requestContext.isMethodMode()) {
+            requestContext.setMethod(servletRequest.getParameter(SystemParameterNames.getMethod()));
+        }
+        else {
+        	requestContext.setMethod(servletRequest.getServletPath());
+        }
         //设置服务处理器
         ServiceMethodHandler serviceMethodHandler =
                 ropContext.getServiceMethodHandler(requestContext.getMethod(), requestContext.getVersion());

@@ -109,19 +109,24 @@ public class ErrorResponse{
     }*/
 
     /**
-     * 对服务名进行标准化处理：如book.upload转换为book-upload，
-     *
+     * 对服务名进行标准化处理：
+     * 如book.upload转换为book-upload，
+     * 如/book/upload转换为book-upload
      * @param method
      * @return
      */
-    protected String transform(String method) {
-        if(method != null){
-            method = method.replace(".", "-");
-            return method;
-        }else{
-            return "LACK_METHOD";
-        }
-    }
+	protected String transform(String method) {
+		if (method != null) {
+			if (method.startsWith("/")) {
+				method = method.substring(1);
+				method = method.replace("/", "-").replace(".", "-");
+			} else {
+				method = method.replace(".", "-");
+			}
+			return method;
+		} else {
+			return "LACK_METHOD";
+		}
+	}
 
 }
-

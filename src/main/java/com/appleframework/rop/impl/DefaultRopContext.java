@@ -41,11 +41,15 @@ public class DefaultRopContext implements RopContext {
 
     private static boolean signEnable;
     
+    private static boolean methodMode = true;
+    
     private static boolean debugEnable = false;
     
     private static boolean monitorEnable = false;
 
     private SessionManager sessionManager;
+    
+    private Class<? extends Exception> serviceExceptionClass;
 
     public DefaultRopContext(ApplicationContext context) {
         registerFromContext(context);
@@ -86,6 +90,14 @@ public class DefaultRopContext implements RopContext {
 
     public void setSignEnable(boolean signEnable) {
     	DefaultRopContext.signEnable = signEnable;
+    }
+    
+    public boolean isMethodMode() {
+        return methodMode;
+    }
+    
+    public void setMethodMode(boolean methodMode) {
+    	DefaultRopContext.methodMode = methodMode;
     }
     
     public SessionManager getSessionManager() {
@@ -335,6 +347,10 @@ public class DefaultRopContext implements RopContext {
     	return signEnable;
     }
     
+    public static boolean readMethodMode() {
+    	return methodMode;
+    }
+    
     public static void resetDebugEnable(boolean debugEnable) {
     	DefaultRopContext.debugEnable = debugEnable;
     }
@@ -350,5 +366,13 @@ public class DefaultRopContext implements RopContext {
     public static boolean readMonitorEnable() {
     	return monitorEnable;
     }
-}
 
+	public Class<? extends Exception> getServiceExceptionClass() {
+		return serviceExceptionClass;
+	}
+
+	public void setServiceExceptionClass(Class<? extends Exception> serviceExceptionClass) {
+		this.serviceExceptionClass = serviceExceptionClass;
+	}
+    
+}

@@ -107,6 +107,13 @@ public interface ServiceRouter {
     void setSignEnable(boolean signEnable);
     
     /**
+     * 设置API访问方式是否是采用method=xxx
+     *
+     * @param methodMode
+     */
+    void setMethodMode(boolean methodMode);
+    
+    /**
      * 设置是否需要开启调试模式
      *
      * @param debugEnable
@@ -165,5 +172,11 @@ public interface ServiceRouter {
      * @param threadFerryClass
      */
     void setThreadFerryClass(Class<? extends ThreadFerry> threadFerryClass);
-}
+    
+    /**
+     * 设置异常处理类
+     * @param serviceExceptionClass
+     */
+    void setServiceExceptionClass(Class<? extends Exception> serviceExceptionClass);
 
+}

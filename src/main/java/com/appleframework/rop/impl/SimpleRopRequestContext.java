@@ -282,6 +282,11 @@ public class SimpleRopRequestContext implements RopRequestContext {
     public boolean isSignEnable() {
         return ropContext.isSignEnable() && !getServiceMethodDefinition().isIgnoreSign();
     }
+    
+    @Override
+    public boolean isMethodMode() {
+        return ropContext.isMethodMode();
+    }
 
     @Override
 	public boolean isDeubgEnable() {

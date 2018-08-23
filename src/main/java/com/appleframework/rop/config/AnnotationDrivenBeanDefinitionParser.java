@@ -82,6 +82,9 @@ public class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParse
         //设置signEnable
         setSignEnable(element, serviceRouterDef);
         
+        //设置methodMode
+        setMethodMode(element, serviceRouterDef);
+        
         //设置debugEnable
         setDebugEnable(element, serviceRouterDef);
         
@@ -91,7 +94,6 @@ public class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParse
         //设置threadFerryClass
         setThreadFerry(element, serviceRouterDef);
 
-
         //设置国际化错误文件
         setExtErrorBaseNames(element, serviceRouterDef);
 
@@ -100,6 +102,9 @@ public class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParse
 
         //设置文件上传配置信息
         setUploadFileSetting(element, serviceRouterDef);
+        
+        //设置错误异常处理类信息
+        setServiceExceptionClass(element, serviceRouterDef);
 
         parserContext.popAndRegisterContainingComponent();
         return null;
@@ -120,6 +125,16 @@ public class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParse
                 logger.debug("Rop配置允许上传的文件类型为",uploadFileTypes);
             }
             serviceRouterDef.getPropertyValues().addPropertyValue("uploadFileTypes", uploadFileTypes);
+        }
+    }
+    
+    private void setServiceExceptionClass(Element element, RootBeanDefinition serviceRouterDef) {
+        String serviceExceptionClassName = element.getAttribute("service-exception-class");
+        if (StringUtils.hasText(serviceExceptionClassName)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Rop配置异常处理类为{}", serviceExceptionClassName);
+            }
+            serviceRouterDef.getPropertyValues().addPropertyValue("serviceExceptionClassName", serviceExceptionClassName);
         }
     }
 
@@ -174,6 +189,16 @@ public class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParse
                 logger.debug("Rop配置请求数据签名开关为{}",signEnable);
             }
             serviceRouterDef.getPropertyValues().addPropertyValue("signEnable", signEnable);
+        }
+    }
+    
+    private void setMethodMode(Element element, RootBeanDefinition serviceRouterDef) {
+        String methodMode = element.getAttribute("method-mode");
+        if (StringUtils.hasText(methodMode)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Rop配置请求API访问模式开关为{}",methodMode);
+            }
+            serviceRouterDef.getPropertyValues().addPropertyValue("methodMode", methodMode);
         }
     }
     

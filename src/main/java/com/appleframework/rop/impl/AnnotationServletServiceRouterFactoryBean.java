@@ -58,11 +58,15 @@ public class AnnotationServletServiceRouterFactoryBean
 
     private boolean signEnable = true;
     
+    private boolean methodMode = true;
+    
     private boolean debugEnable = true;
     
     private boolean monitorEnable = false;
 
     private String extErrorBasename;
+    
+    private Class<? extends Exception> serviceExceptionClass;
 
     private String[] extErrorBasenames;
 
@@ -121,8 +125,7 @@ public class AnnotationServletServiceRouterFactoryBean
                 Class<?> threadFerryClass =
                         ClassUtils.forName(threadFerryClassName, getClass().getClassLoader());
                 if (!ClassUtils.isAssignable(ThreadFerry.class, threadFerryClass)) {
-                    throw new RopException(threadFerryClassName + "没有实现"
-                                         + ThreadFerry.class.getName() + "接口");
+                    throw new RopException(threadFerryClassName + "没有实现" + ThreadFerry.class.getName() + "接口");
                 }
                 this.threadFerryClass = (Class<? extends ThreadFerry>)threadFerryClass;
             }
@@ -157,6 +160,7 @@ public class AnnotationServletServiceRouterFactoryBean
         serviceRouter.setSecurityManager(securityManager);
         serviceRouter.setThreadPoolExecutor(threadPoolExecutor);
         serviceRouter.setSignEnable(signEnable);
+        serviceRouter.setMethodMode(methodMode);
         serviceRouter.setDebugEnable(debugEnable);
         serviceRouter.setMonitorEnable(monitorEnable);
         serviceRouter.setServiceTimeoutSeconds(serviceTimeoutSeconds);
@@ -164,6 +168,7 @@ public class AnnotationServletServiceRouterFactoryBean
         serviceRouter.setSessionManager(sessionManager);
         serviceRouter.setThreadFerryClass(threadFerryClass);
         serviceRouter.setInvokeTimesController(invokeTimesController);
+        serviceRouter.setServiceExceptionClass(serviceExceptionClass);
 
         //注册拦截器
         ArrayList<Interceptor> interceptors = getInterceptors();
@@ -260,6 +265,10 @@ public class AnnotationServletServiceRouterFactoryBean
     public void setSignEnable(boolean signEnable) {
         this.signEnable = signEnable;
     }
+    
+    public void setMethodMode(boolean methodMode) {
+        this.methodMode = methodMode;
+    }
 
     public void setDebugEnable(boolean debugEnable) {
 		this.debugEnable = debugEnable;
@@ -308,5 +317,23 @@ public class AnnotationServletServiceRouterFactoryBean
     public void setUploadFileMaxSize(int uploadFileMaxSize) {
         this.uploadFileMaxSize = uploadFileMaxSize;
     }
+
+	@SuppressWarnings("unchecked")
+	public void setServiceExceptionClassName(String serviceExceptionClassName) {
+		try {
+            if (StringUtils.hasText(serviceExceptionClassName)) {
+                Class<?> serviceExceptionClass = ClassUtils.forName(serviceExceptionClassName, getClass().getClassLoader());
+                if (!ClassUtils.isAssignable(Exception.class, serviceExceptionClass)) {
+                	logger.info(serviceExceptionClassName + "没有实现" + Exception.class.getName() + "接口");
+                }
+                else {
+                	this.serviceExceptionClass = (Class<? extends Exception>)serviceExceptionClass;
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            throw new IllegalArgumentException(e);
+        }
+	}
+    
 }
 

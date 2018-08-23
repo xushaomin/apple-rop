@@ -221,6 +221,13 @@ public interface RopRequestContext {
     boolean isSignEnable();
     
     /**
+     * 设置API访问方式是否是采用method=xxx
+     *
+     * @return
+     */
+    boolean isMethodMode();
+    
+    /**
      * 该方法是否开启调试的功能
      *
      * @return
