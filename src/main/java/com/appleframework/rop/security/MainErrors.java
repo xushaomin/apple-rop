@@ -44,7 +44,7 @@ public class MainErrors {
             Assert.notNull(errorMessageSourceAccessor, "请先设置错误消息的国际化资源");
             return errorMessageSourceAccessor.getMessage(code, params, locale);
         } catch (NoSuchMessageException e) {
-            logger.error("不存在对应的错误键：{}，请检查是否在i18n/rop/error的错误资源", code);
+            logger.info("不存在对应的错误键：{}，请检查是否在i18n/rop/error的错误资源", code);
             throw e;
         }
     }
@@ -54,11 +54,9 @@ public class MainErrors {
             Assert.notNull(errorMessageSourceAccessor, "请先设置错误解决方案的国际化资源");
             return errorMessageSourceAccessor.getMessage(code, new Object[]{}, locale);
         } catch (NoSuchMessageException e) {
-            logger.error("不存在对应的错误键：{}，请检查是否在i18n/rop/error的错误资源", code);
+            logger.info("不存在对应的错误键：{}，请检查是否在i18n/rop/error的错误资源", code);
             throw e;
         }
     }
 
-
 }
-

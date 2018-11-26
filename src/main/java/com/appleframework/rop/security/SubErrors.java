@@ -29,20 +29,13 @@ public class SubErrors {
             new EnumMap<SubErrorType, MainErrorType>(SubErrorType.class);
 
     static {
-        SUBERROR_MAINERROR_MAPPINGS.put(
-                SubErrorType.ISP_SERVICE_UNAVAILABLE, MainErrorType.SERVICE_CURRENTLY_UNAVAILABLE);
-        SUBERROR_MAINERROR_MAPPINGS.put(
-                SubErrorType.ISP_SERVICE_TIMEOUT, MainErrorType.SERVICE_CURRENTLY_UNAVAILABLE);
-        SUBERROR_MAINERROR_MAPPINGS.put(
-                SubErrorType.ISV_MISSING_PARAMETER, MainErrorType.MISSING_REQUIRED_ARGUMENTS);
-        SUBERROR_MAINERROR_MAPPINGS.put(
-                SubErrorType.ISV_PARAMETERS_MISMATCH, MainErrorType.INVALID_ARGUMENTS);
-        SUBERROR_MAINERROR_MAPPINGS.put(
-                SubErrorType.ISV_INVALID_PARAMETE, MainErrorType.INVALID_ARGUMENTS);
-        SUBERROR_MAINERROR_MAPPINGS.put(
-                SubErrorType.ISV_NOT_EXIST, MainErrorType.INVALID_ARGUMENTS);
-        SUBERROR_MAINERROR_MAPPINGS.put(
-                SubErrorType.ISV_INVALID_PERMISSION, MainErrorType.INSUFFICIENT_ISV_PERMISSIONS);
+        SUBERROR_MAINERROR_MAPPINGS.put(SubErrorType.ISP_SERVICE_UNAVAILABLE, MainErrorType.SERVICE_CURRENTLY_UNAVAILABLE);
+        SUBERROR_MAINERROR_MAPPINGS.put(SubErrorType.ISP_SERVICE_TIMEOUT, MainErrorType.SERVICE_CURRENTLY_UNAVAILABLE);
+        SUBERROR_MAINERROR_MAPPINGS.put(SubErrorType.ISV_MISSING_PARAMETER, MainErrorType.MISSING_REQUIRED_ARGUMENTS);
+        SUBERROR_MAINERROR_MAPPINGS.put(SubErrorType.ISV_PARAMETERS_MISMATCH, MainErrorType.INVALID_ARGUMENTS);
+        SUBERROR_MAINERROR_MAPPINGS.put(SubErrorType.ISV_INVALID_PARAMETE, MainErrorType.INVALID_ARGUMENTS);
+        SUBERROR_MAINERROR_MAPPINGS.put(SubErrorType.ISV_NOT_EXIST, MainErrorType.INVALID_ARGUMENTS);
+        SUBERROR_MAINERROR_MAPPINGS.put(SubErrorType.ISV_INVALID_PERMISSION, MainErrorType.INSUFFICIENT_ISV_PERMISSIONS);
     }
 
     private static MessageSourceAccessor messageSourceAccessor;
@@ -77,7 +70,7 @@ public class SubErrors {
             String parsedSubErrorMessage = messageSourceAccessor.getMessage(subErrorKey, params, locale);
             return new SubError(subErrorCode, parsedSubErrorMessage);
 		} catch (NoSuchMessageException e) {
-			logger.error("不存在对应的错误键：{}，请检查是否正确配置了应用的错误资源，" + "默认位置：i18n/rop/ropError", subErrorCode);
+			logger.info("不存在对应的错误键：{}，请检查是否正确配置了应用的错误资源，" + "默认位置：i18n/rop/ropError", subErrorCode);
 			throw e;
 		}
     }
