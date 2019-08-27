@@ -1,1 +1,5 @@
+http\://www.appleframework.com/schema/rop/rop-1.0.xsd=com/appleframework/rop/rop-1.0.xsd
+http\://www.appleframework.com/schema/rop/rop-1.1.xsd=com/appleframework/rop/rop-1.1.xsd
 http\://www.appleframework.com/schema/rop/rop-1.2.xsd=com/appleframework/rop/rop-1.2.xsd
+http\://www.appleframework.com/schema/rop/rop-1.3.xsd=com/appleframework/rop/rop-1.3.xsd
+http\://www.appleframework.com/schema/rop/rop-1.4.xsd=com/appleframework/rop/rop-1.4.xsd
